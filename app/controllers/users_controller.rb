@@ -2,6 +2,22 @@ class UsersController < ApplicationController
   def new 
     @user = User.new
   end 
+
+  def edit 
+    @user = User.find(params[:id])
+  end 
+
+  def update 
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:notice] = "Your account information was successfully updated"
+      redirect_to articles_path
+    else 
+      render 'edit'
+    end
+
+  end 
+
   def create 
     # need to whitelist the props on the user class 
     @user = User.new(user_params)
